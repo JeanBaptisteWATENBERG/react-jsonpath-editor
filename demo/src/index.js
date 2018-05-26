@@ -8,6 +8,7 @@ class Demo extends Component {
     return <div>
       <h1>react-jsonpath-editor Demo</h1>
       <Example/>
+      <p>This is some text behind the component. A Looooooooooooooooooooooooooooooooooooooooooooooooooooooong text</p>
     </div>
   }
 }
