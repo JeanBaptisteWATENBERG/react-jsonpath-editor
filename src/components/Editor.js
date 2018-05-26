@@ -105,11 +105,9 @@ class Editor extends Component {
 
     evalPath(newProps) {
         if (newProps.jsonpath) {
-            console.log(getInputSelection(newProps.input))
             const suggestions = getSuggestion(
                 newProps.jsonpath,
                 getInputSelection(newProps.input).start,
-                newProps.jsonSchema || this.state.jsonSchema,
                 newProps.json || this.state.jsonToFilter
             )
 

@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import Editor from './components/Editor'
 
+/** 
+ * props :
+ *  - inputProps? -- properties to set on input tag
+ *  - value? -- input value
+ *  - onChange? -- function called when input value change
+ *  - json? -- json to edit
+*/
 export default class extends Component {
 
   constructor(props) {
@@ -87,7 +94,7 @@ export default class extends Component {
   }
 
   render() {
-    const {inputProps} = this.props;
+    const {inputProps, json} = this.props;
     const {value, editorOpened, editorPosition} = this.state;
     return <span>
       <input ref={this.inputRef} type='text' value={value} onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onBlur} {...inputProps} />
@@ -95,6 +102,7 @@ export default class extends Component {
         input={this.inputRef.current}
         position={editorPosition}
         jsonpath={value}
+        json={json}
         onJsonPathChanged={this.changePath}
         onMouseEnter={this.disableBlur}
         onMouseLeave={this.onMouseLeaveFromEditor} />}

@@ -2,6 +2,17 @@ import jp from 'jsonpath/jsonpath.min';
 
 const suggestions = [
     {
+        "description": "pick a value in a collection",
+        "value": "[]",
+        "setCarretAt": 1,
+        "scopes": ["array"]
+    },
+    {
+        "description": "get collection size",
+        "value": ".length",
+        "scopes": ["array"]
+    },
+    {
         "description": "access a specific property",
         "value": ".",
         "scopes": ["array", "object"]
@@ -18,17 +29,6 @@ const suggestions = [
     {
         "value": "all_properties_recursively",
         "scopes": [".."]
-    },
-    {
-        "description": "get collection size",
-        "value": ".length",
-        "scopes": ["array"]
-    },
-    {
-        "description": "pick a value in a collection",
-        "value": "[]",
-        "setCarretAt": 1,
-        "scopes": ["array"]
     },
     {
         "description": "filter a collection",
@@ -65,20 +65,20 @@ const suggestions = [
     },
 ]
 
-export const getSuggestion = (jsonPath, carretPosition, jsonSchema, jsonToTestAgainst) => {
+export const getSuggestion = (jsonPath, carretPosition, jsonToTestAgainst) => {
     try {
-        const filteredJson = jp.query(jsonToTestAgainst, jsonPath);
+        const filteredJson = jp.query(jsonToTestAgainst, jsonPath)[0];
         if (Array.isArray(filteredJson)) {
             return suggestions.filter(s => s.scopes.includes('array'));
         } else {
             return suggestions.filter(s => s.scopes.includes('object'));
         }
-    } catch(e) {
+    } catch (e) {
         const appliableScopes = suggestions.filter(s => jsonPath.endsWith(s.value))
 
         if (appliableScopes.length > 0) {
             // Check if there is any conditions on carret position for appliableScope
-            const appliableScope = appliableScopes[appliableScopes.length-1];
+            const appliableScope = appliableScopes[appliableScopes.length - 1];
             if (appliableScope.setCarretAt) {
                 if (jsonPath.length - carretPosition - 1 === appliableScope.setCarretAt) {
                     return suggestions.filter(s => s.scopes.includes(appliableScope.value));
@@ -89,7 +89,6 @@ export const getSuggestion = (jsonPath, carretPosition, jsonSchema, jsonToTestAg
                 return flatten(evalAllProperties(
                     suggestions.filter(s => s.scopes.includes(appliableScope.value)),
                     jsonPath,
-                    jsonSchema,
                     jsonToTestAgainst
                 ));
             }
@@ -103,28 +102,41 @@ const flatten = (arr) => {
     return [].concat(...arr)
 }
 
-const evalAllProperties = (suggestions, jsonPath, jsonSchema, jsonToTestAgainst) => {
+const evalAllProperties = (suggestions, jsonPath, jsonToTestAgainst) => {
     return suggestions.map(s => {
         if (s.value === 'all_properties') {
             const jsonPathToObject = jsonPath.substring(0, jsonPath.length - 1);
-            const filteredJson = jp.query(jsonToTestAgainst, jsonPathToObject)[0];
-            
-            const properties = Object.keys(filteredJson);
-            return properties.map(p => ({
-                value: p,
-                description: 'property',
-                scopes: ['object']
-            }))
+            try {
+                const filteredJson = jp.query(jsonToTestAgainst, jsonPathToObject)[0];
+
+                const properties = Object.keys(filteredJson);
+
+                return properties.map(p => ({
+                    value: p,
+                    description: 'property',
+                    scopes: ['object']
+                }))
+            } catch (e) {
+                // ignore error
+                return []
+            }
+
+
         } else if (s.value === 'all_properties_recursively') {
             const jsonPathToObject = jsonPath.substring(0, jsonPath.length - 2);
-            const filteredJson = jp.query(jsonToTestAgainst, jsonPathToObject)[0];
+            try {
+                const filteredJson = jp.query(jsonToTestAgainst, jsonPathToObject)[0];
 
-            const properties = Array.from(new Set(getAllPropertiesRecursively(filteredJson)));
-            return properties.map(p => ({
-                value: p,
-                description: 'property',
-                scopes: ['object']
-            }))
+                const properties = Array.from(new Set(getAllPropertiesRecursively(filteredJson)));
+                return properties.map(p => ({
+                    value: p,
+                    description: 'property',
+                    scopes: ['object']
+                }))
+            } catch (e) {
+                // ignore error
+                return []
+            }
         } else {
             return s;
         }
