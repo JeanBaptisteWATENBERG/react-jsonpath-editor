@@ -71,11 +71,13 @@ export default class extends Component {
 
   changePath(newValue) {
     if (this.props.onChange) this.props.onChange(newValue)
+    if (newValue.startsWith('$')) this.setState({editorOpened: true})
+    else this.setState({editorOpened: false})
     this.setState({value: newValue})
   }
 
   onFocus() {
-    this.setState({editorOpened: true})
+    if (this.inputRef.current.value.startsWith('$')) this.setState({editorOpened: true})
   }
 
   onBlur() {
@@ -89,7 +91,13 @@ export default class extends Component {
     const {value, editorOpened, editorPosition} = this.state;
     return <span>
       <input ref={this.inputRef} type='text' value={value} onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onBlur} {...inputProps} />
-      {editorOpened && <Editor position={editorPosition} jsonpath={value} onJsonPathChanged={this.changePath} onMouseEnter={this.disableBlur} onMouseLeave={this.onMouseLeaveFromEditor} />}
+      {editorOpened && <Editor 
+        input={this.inputRef.current}
+        position={editorPosition}
+        jsonpath={value}
+        onJsonPathChanged={this.changePath}
+        onMouseEnter={this.disableBlur}
+        onMouseLeave={this.onMouseLeaveFromEditor} />}
     </span>
   }
 }
