@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import JSONEditor from 'jsoneditor';
 import jp from 'jsonpath/jsonpath.min';
+import ejs from 'easy-json-schema';
+import {getSuggestion} from './suggestionBuilder';
+import { getInputSelection, setCaretPosition, insertAtCursor } from './getInputSelection';
+import SuggestionList from './SuggestionList';
 
 import 'jsoneditor/dist/jsoneditor.min.css';
 import './editor.css';
@@ -44,28 +48,73 @@ class Editor extends Component {
 
         this.jsonEditorRef = React.createRef();
         this.onJsonChange = this.onJsonChange.bind(this)
+        this.onSelectSuggestion = this.onSelectSuggestion.bind(this)
 
         this.state = {
-            jsonToFilter: props.json || defaultJsonToFilter
+            jsonToFilter: props.json || defaultJsonToFilter,
+            jsonSchema: null,
+            suggestions: []
         }
     }
 
     componentDidMount() {
         this.jsonEditor = new JSONEditor(this.jsonEditorRef.current, {modes: ['tree','code'], search: false, change: this.onJsonChange});
         this.jsonEditor.set(this.state.jsonToFilter)
-        if(this.props.jsonSchema) this.jsonEditor.setSchema(this.props.jsonSchema)
+        this.initSchema(this.props)
         this.jsonEditor.expandAll()
+        this.evalPath(this.props)
+    }
+
+    initSchema(props) {
+        if(props.jsonSchema) {
+            this.setState({jsonSchema: props.jsonSchema})
+            this.jsonEditor.setSchema(jsonSchema)
+        } else {
+            const schema = ejs(this.state.jsonToFilter)
+            this.setState({jsonSchema: schema})
+        }
     }
 
     componentWillReceiveProps(newProps) {
+        const promises = [];
         if (newProps.json) {
-            this.setState({jsonToFilter: newProps.json})
-            this.jsonEditor.set(newProps.json)
+            const jsonToFilterStatePromise = new Promise((resolve) => {
+                this.setState({jsonToFilter: newProps.json}, () => {
+                    resolve();
+                })
+                this.jsonEditor.set(newProps.json)
+            });
+            
+            promises.push(jsonToFilterStatePromise)
         }
         if (newProps.jsonSchema) {
             this.jsonEditor.setSchema(newProps.jsonSchema)
         }
+
+        // ensure state modifications to jsonToFilter did propagate
+        if (promises.length > 0) {
+            Promise.all(promises).then(() => {
+                this.initSchema(newProps)
+                this.evalPath(newProps)
+            })
+        } else {
+            this.initSchema(newProps)
+            this.evalPath(newProps)
+        }
+    }
+
+    evalPath(newProps) {
         if (newProps.jsonpath) {
+            console.log(getInputSelection(newProps.input))
+            const suggestions = getSuggestion(
+                newProps.jsonpath,
+                getInputSelection(newProps.input).start,
+                newProps.jsonSchema || this.state.jsonSchema,
+                newProps.json || this.state.jsonToFilter
+            )
+
+            this.setState({suggestions})
+
             try {
                 const filteredJson = jp.query(this.state.jsonToFilter, newProps.jsonpath);
                 this.jsonEditor.set(filteredJson)
@@ -78,27 +127,34 @@ class Editor extends Component {
     }
 
     onJsonChange() {
-        this.setState({jsonToFilter: this.jsonEditor.get()})
+        this.setState({jsonToFilter: this.jsonEditor.get()}, () => this.initSchema(this.props))
+    }
+
+    onSelectSuggestion(suggestion) {
+        const initialJsonPathLength = this.props.jsonpath.length;
+    
+        this.props.onJsonPathChanged(insertAtCursor(this.props.input, suggestion.value));
+
+        if (suggestion.setCarretAt) {
+            setCaretPosition(this.props.input, initialJsonPathLength + suggestion.setCarretAt)
+        }
     }
 
     render() { 
         const style = {
-            position: 'absolute',
             top: this.props.position.y,
             left: this.props.position.x,
-            zIndex: 15,
-            boxShadow: '5px 5px 5px 1px rgba(0, 0, 0, .2)',
-            maxHeight: '300px',
-            maxWidth: '300px'
         }
 
-        return <div style={style} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.props.onMouseLeave}>
-            <div className='jsoneditor-menu'>
-                <button style={{backgroundImage: 'none'}} title='Begin Json path expression'>($)</button>
-                <button style={{backgroundImage: 'none'}} title='filter an array'>([?])</button>
-                <button style={{backgroundImage: 'none'}} title='Get an item in an array'>([])</button>
+        return <div className='react-json-path-editor-container' style={style} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.props.onMouseLeave}>
+            <div className='react-json-path-editor-intellisense'>
+                <SuggestionList
+                    suggestions={this.state.suggestions}
+                    onSelectSuggestion={this.onSelectSuggestion}
+                    // onSelectSuggestionToSimulate={}
+                    />
             </div>
-            <div ref={this.jsonEditorRef}></div>
+            <div className='react-json-path-editor-jsoneditor-container' ref={this.jsonEditorRef}></div>
         </div>;
     }
 }

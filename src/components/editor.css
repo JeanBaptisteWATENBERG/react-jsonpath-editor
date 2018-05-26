@@ -1,4 +1,42 @@
+.react-json-path-editor-container {
+    position: absolute;
+    z-index: 15;
+    max-height: 500px;
+    width: 800px;
+    display: flex;
+}
+
+.react-json-path-editor-jsoneditor-container {
+    width: 500px;
+    background: white;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
+}
+
+.react-json-path-editor-intellisense {
+    width: 200px;
+    height: 250px;
+    border: 1px solid #3883fa;
+    background: white;
+    margin-right: 10px;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
+    overflow-y: auto;
+}
+
+.react-json-path-editor-intellisense ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.react-json-path-editor-intellisense ul li {
+    padding: 5px;
+}
+
+.react-json-path-editor-intellisense ul li.selected {
+    background: #d3d3d3;
+}
+
 .jsoneditor-outer div {
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
 }
