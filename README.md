@@ -4,7 +4,8 @@
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-Describe react-jsonpath-editor here.
+![alt text](docs/react-jsonpath-editor.png "React json path editor")
+
 
 [build-badge]: https://img.shields.io/travis/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
 [build]: https://travis-ci.org/JeanBaptisteWATENBERG/react-jsonpath-editor
