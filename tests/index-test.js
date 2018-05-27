@@ -77,6 +77,21 @@ describe('JsonPathEditor', () => {
     expect(wrapper.state().value).toEqual('$.')
   })
 
+  it('should not reflect prop value change to state when value is null', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    expect(wrapper.state().value).toEqual('$')
+    wrapper.setProps({value: null})
+    expect(wrapper.state().value).toEqual('$')
+  })
+
+  it('should not reflect prop value change to state when value is undefined', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    expect(wrapper.state().value).toEqual('$')
+    const value;
+    wrapper.setProps({value})
+    expect(wrapper.state().value).toEqual('$')
+  })
+
   it('should not reflect prop change to state', () => {
     const wrapper = mount(<JsonPathEditor value='$' />);
     expect(wrapper.state().value).toEqual('$')
