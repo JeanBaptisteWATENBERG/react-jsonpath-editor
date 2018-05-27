@@ -87,7 +87,7 @@ describe('JsonPathEditor', () => {
   it('should not reflect prop value change to state when value is undefined', () => {
     const wrapper = mount(<JsonPathEditor value='$' />);
     expect(wrapper.state().value).toEqual('$')
-    const value;
+    let value;
     wrapper.setProps({value})
     expect(wrapper.state().value).toEqual('$')
   })
