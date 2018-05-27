@@ -1,9 +1,13 @@
 import expect from 'expect'
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
+import Enzyme, { mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import JsonPathEditor from 'src/'
 import { getSuggestion } from '../src/components/suggestionBuilder';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('JsonPathEditor', () => {
   let node
@@ -20,6 +24,46 @@ describe('JsonPathEditor', () => {
     render(<JsonPathEditor />, node, () => {
       expect(node.innerHTML).toContain('input')
     })
+  })
+
+  it('should have a default state', () => {
+    const wrapper = mount(<JsonPathEditor />);
+    expect(wrapper.state()).toEqual({
+      value: '',
+      editorOpened: false,
+      isBlurEnable: true,
+      editorPosition: {x:0,y:0}
+    })
+  })
+
+  it('should set value according to value prop', () => {
+    const wrapper = mount(<JsonPathEditor value='hello' />);
+    expect(wrapper.state()).toEqual({
+      value: 'hello',
+      editorOpened: false,
+      isBlurEnable: true,
+      editorPosition: {x:0,y:0}
+    })
+  })
+
+  it('should let the editor closed', () => {
+    const wrapper = mount(<JsonPathEditor value='hello' />);
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.state().editorOpened).toEqual(false)
+  })
+
+  it('should open the editor', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.state().editorOpened).toEqual(true)
+  })
+
+  it('should close the editor when focus is lost', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.state().editorOpened).toEqual(true)
+    wrapper.find('input').simulate('blur')
+    expect(wrapper.state().editorOpened).toEqual(false)
   })
 })
 
