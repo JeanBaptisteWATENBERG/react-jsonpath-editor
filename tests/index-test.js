@@ -16,6 +16,11 @@ describe('JsonPathEditor', () => {
     
   })
 
+  it('should unmount', () => {
+    const wrapper = mount(<JsonPathEditor />)
+    wrapper.unmount();
+  })
+
   it('should have a default state', () => {
     const wrapper = mount(<JsonPathEditor />);
     expect(wrapper.state()).toEqual({
@@ -72,6 +77,13 @@ describe('JsonPathEditor', () => {
     expect(wrapper.state().value).toEqual('$.')
   })
 
+  it('should not reflect prop change to state', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    expect(wrapper.state().value).toEqual('$')
+    wrapper.setProps({xx: '$.'})
+    expect(wrapper.state().value).toEqual('$')
+  })
+
   it('should close the editor when esc is pressed', () => {
     const wrapper = mount(<JsonPathEditor value='$' />);
     wrapper.find('input').simulate('focus')
@@ -79,6 +91,14 @@ describe('JsonPathEditor', () => {
     wrapper.instance().escFunction({keyCode: 27})
     expect(wrapper.state().editorOpened).toEqual(false)
     expect(wrapper.state().isBlurEnable).toEqual(true)
+  })
+
+  it('should not close the editor when another key than esc is pressed', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.state().editorOpened).toEqual(true)
+    wrapper.instance().escFunction({keyCode: 28})
+    expect(wrapper.state().editorOpened).toEqual(true)
   })
 
   it('should set isBlurEnabled accordingly', () => {
@@ -92,6 +112,13 @@ describe('JsonPathEditor', () => {
   it('should dispatch the change when jsonPath is updated but no callback is defined in properties, neither jsonPath starts by $', () => {
     const wrapper = mount(<JsonPathEditor value='hello' />);
     wrapper.instance().changePath('world');
+    expect(wrapper.state().editorOpened).toBe(false);
+    expect(wrapper.state().value).toBe('world');
+  })
+
+  it('should dispatch the change from an event', () => {
+    const wrapper = mount(<JsonPathEditor value='hello' />);
+    wrapper.instance().onChange({target: {value:'world'}});
     expect(wrapper.state().editorOpened).toBe(false);
     expect(wrapper.state().value).toBe('world');
   })
@@ -110,5 +137,11 @@ describe('JsonPathEditor', () => {
     expect(wrapper.state().editorOpened).toBe(true);
     expect(wrapper.state().value).toBe('$.');
     expect(spy).toHaveBeenCalledWith('$.');
+  })
+
+  it('should focus input and enable blur when mouse leaves the editor', () => {
+    const wrapper = mount(<JsonPathEditor value='$' />);
+    wrapper.instance().onMouseLeaveFromEditor();
+    expect(wrapper.state().isBlurEnable).toEqual(true);
   })
 })

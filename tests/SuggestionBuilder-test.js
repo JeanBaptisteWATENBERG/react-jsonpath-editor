@@ -21,10 +21,12 @@ describe('get suggestion', () => {
     it('should lists .. suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$..', 2, { test: 0 });
+        const suggestion = getSuggestion('$..', 2, { test: 0, test2: [{test3: 1}] });
         // Then
         expect(suggestion).toEqual([
-            { value: 'test', description: 'property', scopes: ['object'] }
+            { value: 'test', description: 'property', scopes: ['object'] },
+            { value: 'test2', description: 'property', scopes: ['object'] },
+            { value: 'test3', description: 'property', scopes: ['object'] }
         ])
     })
 

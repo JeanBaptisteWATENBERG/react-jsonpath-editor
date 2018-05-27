@@ -67,7 +67,6 @@ export default class extends Component {
   }
 
   onMouseLeaveFromEditor() {
-    console.log('leaved')
     this.inputRef.current.focus()
     this.enableBlur()
   }
