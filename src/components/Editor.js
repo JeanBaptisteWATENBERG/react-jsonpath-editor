@@ -68,7 +68,7 @@ class Editor extends Component {
     initSchema(props) {
         if(props.jsonSchema) {
             this.setState({jsonSchema: props.jsonSchema})
-            this.jsonEditor.setSchema(jsonSchema)
+            this.jsonEditor.setSchema(props.jsonSchema)
         } else {
             const schema = ejs(this.state.jsonToFilter)
             this.setState({jsonSchema: schema})

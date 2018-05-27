@@ -14,6 +14,9 @@ class SuggestionList extends Component {
 
     componentDidMount(){
         document.addEventListener('keydown', this.keyboardControl, false);
+        if (this.props.suggestions && this.props.suggestions.length > 0) {
+            this.selectSuggestion(this.props.suggestions[0])
+        }
     }
     
     componentWillUnmount(){
