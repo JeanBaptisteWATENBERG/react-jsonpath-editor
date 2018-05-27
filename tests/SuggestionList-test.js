@@ -77,5 +77,26 @@ describe('SuggestionList component', () => {
         // Then
         expect(wrapper.state().selectedSuggestion).toEqual({value: 'test', description: 'test'});
         expect(spy).toHaveBeenCalledWith({value: 'test', description: 'test'});
+
+        // When
+        wrapper.instance().keyboardControl({keyCode: 85, preventDefault: () => {}});
+        // Then
+        expect(wrapper.state().selectedSuggestion).toEqual({value: 'test', description: 'test'});
+    })
+
+    it('should select the suggestion and call the suggestion simulation function', () => {
+        // Given
+        const UP = 38;
+        const DOWN = 40;
+        const ENTER = 13;
+        const spy = expect.createSpy();
+        const wrapper = mount(<SuggestionList onSelectSuggestionToSimulate={spy} suggestions={[{value: 'test', description: 'test'}, {value: 'test1', description: 'test'}, {value: 'test2', description: 'test'}]} />);
+        expect(wrapper.find('li').length).toEqual(3);
+        
+        // When
+        wrapper.instance().keyboardControl({keyCode: UP, preventDefault: () => {}});
+        // Then
+        expect(wrapper.state().selectedSuggestion).toEqual({value: 'test2', description: 'test'});
+        expect(spy).toHaveBeenCalledWith({value: 'test2', description: 'test'});
     })
 })

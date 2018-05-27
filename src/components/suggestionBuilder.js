@@ -102,7 +102,7 @@ const flatten = (arr) => {
     return [].concat(...arr)
 }
 
-const evalAllProperties = (suggestions, jsonPath, jsonToTestAgainst) => {
+export const evalAllProperties = (suggestions, jsonPath, jsonToTestAgainst) => {
     return suggestions.map(s => {
         if (s.value === 'all_properties') {
             const jsonPathToObject = jsonPath.substring(0, jsonPath.length - 1);

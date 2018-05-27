@@ -35,6 +35,13 @@ describe('Editor component', () => {
     it ('should dispatch selected suggestion', () =>  {
         const spy = expect.createSpy();
         const wraper = mount(<Editor input={document.createElement('input')} onJsonPathChanged={spy} jsonpath='abc' position={{x: 0, y:0}} json={{type: 'string'}} />)
+        wraper.instance().onSelectSuggestion({value: 'test', description: 'test'});
+        expect(spy).toHaveBeenCalledWith('test');
+    })
+
+    it ('should dispatch selected suggestion when suggestion has setCarretAt', () =>  {
+        const spy = expect.createSpy();
+        const wraper = mount(<Editor input={document.createElement('input')} onJsonPathChanged={spy} jsonpath='abc' position={{x: 0, y:0}} json={{type: 'string'}} />)
         wraper.instance().onSelectSuggestion({value: 'test', description: 'test', setCarretAt: 1});
         expect(spy).toHaveBeenCalledWith('test');
     })

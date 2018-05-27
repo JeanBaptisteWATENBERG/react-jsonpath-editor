@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { getSuggestion } from '../src/components/suggestionBuilder';
+import { getSuggestion, evalAllProperties } from '../src/components/suggestionBuilder';
 
 
 describe('get suggestion', () => {
@@ -156,5 +156,14 @@ describe('get suggestion', () => {
         const suggestion = getSuggestion('$.hello[@', 1, { test: [0, 1] });
         // then
         expect(suggestion).toEqual([]);
+    })
+
+    it ('should lists no properties when json path is invalid', () => {
+        // Given
+        const suggestions = [{value: 'all_properties', description: 'test'},{value: 'all_properties_recursively', description: 'test'}];
+        // When
+        const evaluatedProperties = evalAllProperties(suggestions, '$....', {test: 'a'});
+        // Then
+        expect(evaluatedProperties).toEqual([[],[]])
     })
 })
