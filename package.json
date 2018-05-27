@@ -33,11 +33,14 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
   },
-  "author": "",
-  "homepage": "",
+  "author": "Jean-Baptiste WATENBERG",
+  "homepage": "https://github.com/JeanBaptisteWATENBERG/react-jsonpath-editor",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/JeanBaptisteWATENBERG/react-jsonpath-editor",
   "keywords": [
-    "react-component"
+    "react-component",
+    "jsonpath",
+    "react",
+    "component"
   ]
 }
