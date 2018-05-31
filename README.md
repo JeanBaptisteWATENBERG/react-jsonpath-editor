@@ -44,7 +44,7 @@ class App extends Component {
 [build-badge]: https://img.shields.io/travis/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
 [build]: https://travis-ci.org/JeanBaptisteWATENBERG/react-jsonpath-editor
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/react-jsonpath-editor.png?style=flat-square
 [npm]: https://www.npmjs.com/package/react-jsonpath-editor
 
 [coveralls-badge]: https://img.shields.io/coveralls/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
