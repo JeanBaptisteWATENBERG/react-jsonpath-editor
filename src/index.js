@@ -7,6 +7,7 @@ import Editor from './components/Editor'
  *  - value? -- input value
  *  - onChange? -- function called when input value change
  *  - json? -- json to edit
+ *  - editorPosition? -- {x,y} overrides the position of the editor 
 */
 export default class extends Component {
 
@@ -46,8 +47,12 @@ export default class extends Component {
   }
 
   updateEditorPosition() {
-    const inputBoundRect = this.inputRef.current.getBoundingClientRect();
-    this.setState({editorPosition: {x:inputBoundRect.left, y: inputBoundRect.top + inputBoundRect.height}});
+    if (this.props.editorPosition) {
+      this.setState({editorPosition: this.props.editorPosition});
+    } else if (this.inputRef && this.inputRef.current) {
+      const inputBoundRect = this.inputRef.current.getBoundingClientRect();
+      this.setState({editorPosition: {x:inputBoundRect.left, y: inputBoundRect.top + inputBoundRect.height}});
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -95,7 +100,7 @@ export default class extends Component {
   render() {
     const {inputProps, json} = this.props;
     const {value, editorOpened, editorPosition} = this.state;
-    return <span>
+    return <React.Fragment>
       <input ref={this.inputRef} type='text' value={value} onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onBlur} {...inputProps} />
       {editorOpened && <Editor 
         input={this.inputRef.current}
@@ -105,6 +110,6 @@ export default class extends Component {
         onJsonPathChanged={this.changePath}
         onMouseEnter={this.disableBlur}
         onMouseLeave={this.onMouseLeaveFromEditor} />}
-    </span>
+    </React.Fragment>
   }
 }

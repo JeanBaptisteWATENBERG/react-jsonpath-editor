@@ -40,6 +40,7 @@ class App extends Component {
 | value         |   `string`    |  `false`  | input default value                                   |
 | json          |   `object`    |  `false`  | json to test the json path and provide autocompletion |
 | onChange      |  `function`   |  `false`  | callback called when jsonPath changed                 |
+| editorPosition|   `object`    |  `false`  | {x,y} overrides the position of the editor            |
 
 [build-badge]: https://img.shields.io/travis/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
 [build]: https://travis-ci.org/JeanBaptisteWATENBERG/react-jsonpath-editor
