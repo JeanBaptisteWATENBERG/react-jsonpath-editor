@@ -24,6 +24,7 @@ export default class extends Component {
     this.enableBlur = this.controlBlur.bind(this, {isEnable: true})
     this.escFunction = this.escFunction.bind(this)
     this.onMouseLeaveFromEditor = this.onMouseLeaveFromEditor.bind(this)
+    this.updateEditorPosition = this.updateEditorPosition.bind(this)
 
     this.state = {
       value: props.value || '',
