@@ -1,6 +1,6 @@
 {
   "name": "react-jsonpath-editor",
-  "version": "1.1.0-beta.2",
+  "version": "1.1.0-beta.3",
   "description": "react-jsonpath-editor React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,6 +29,8 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^5.3.0",
+    "eslint-plugin-react": "^7.10.0",
     "nwb": "0.21.x",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"

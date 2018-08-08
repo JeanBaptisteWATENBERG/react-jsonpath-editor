@@ -2,7 +2,7 @@ export const getInputSelection = (el) => {
     var start = 0, end = 0, normalizedValue, range,
         textInputRange, len, endRange;
 
-    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+    if (typeof el.selectionStart == 'number' && typeof el.selectionEnd == 'number') {
         start = el.selectionStart;
         end = el.selectionEnd;
     } else {
@@ -10,7 +10,7 @@ export const getInputSelection = (el) => {
 
         if (range && range.parentElement() == el) {
             len = el.value.length;
-            normalizedValue = el.value.replace(/\r\n/g, "\n");
+            normalizedValue = el.value.replace(/\r\n/g, '\n');
 
             // Create a working TextRange that lives only in the input
             textInputRange = el.createTextRange();
@@ -22,17 +22,17 @@ export const getInputSelection = (el) => {
             endRange = el.createTextRange();
             endRange.collapse(false);
 
-            if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+            if (textInputRange.compareEndPoints('StartToEnd', endRange) > -1) {
                 start = end = len;
             } else {
-                start = -textInputRange.moveStart("character", -len);
-                start += normalizedValue.slice(0, start).split("\n").length - 1;
+                start = -textInputRange.moveStart('character', -len);
+                start += normalizedValue.slice(0, start).split('\n').length - 1;
 
-                if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+                if (textInputRange.compareEndPoints('EndToEnd', endRange) > -1) {
                     end = len;
                 } else {
-                    end = -textInputRange.moveEnd("character", -len);
-                    end += normalizedValue.slice(0, end).split("\n").length - 1;
+                    end = -textInputRange.moveEnd('character', -len);
+                    end += normalizedValue.slice(0, end).split('\n').length - 1;
                 }
             }
         }
@@ -42,7 +42,7 @@ export const getInputSelection = (el) => {
         start: start,
         end: end
     };
-}
+};
 
 export const setCaretPosition = (elem, caretPos) => {
     if(elem != null) {
@@ -61,7 +61,7 @@ export const setCaretPosition = (elem, caretPos) => {
             }
         }
     }
-}
+};
 
 export const insertAtCursor = (myField, myValue) => {
     const selection = getInputSelection(myField);
@@ -69,4 +69,4 @@ export const insertAtCursor = (myField, myValue) => {
     return myField.value.substring(0, selection.start)
         + myValue
         + myField.value.substring(selection.end, myField.value.length);
-}
+};

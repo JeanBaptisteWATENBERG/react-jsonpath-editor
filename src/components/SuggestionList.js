@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class SuggestionList extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             selectedSuggestion: {}
-        }
+        };
 
         this.keyboardControl = this.keyboardControl.bind(this);
     }
@@ -15,7 +15,7 @@ class SuggestionList extends Component {
     componentDidMount(){
         document.addEventListener('keydown', this.keyboardControl, false);
         if (this.props.suggestions && this.props.suggestions.length > 0) {
-            this.selectSuggestion(this.props.suggestions[0])
+            this.selectSuggestion(this.props.suggestions[0]);
         }
     }
     
@@ -36,11 +36,11 @@ class SuggestionList extends Component {
                     if (isFirst) tempSuggestion = this.props.suggestions[this.props.suggestions.length - 1];
                     break;
                 }
-                if (!isFirst) tempSuggestion = suggestion
+                if (!isFirst) tempSuggestion = suggestion;
                 isFirst = false;
             }
             const suggestionToSelect = tempSuggestion || this.props.suggestions[0];
-            this.selectSuggestion(suggestionToSelect)
+            this.selectSuggestion(suggestionToSelect);
         } else if(e.keyCode === DOWN) {
             e.preventDefault();
             let isNext = false;
@@ -58,18 +58,18 @@ class SuggestionList extends Component {
             }
 
             if (!suggestionToSelect) {
-                suggestionToSelect = this.props.suggestions[0]
+                suggestionToSelect = this.props.suggestions[0];
             }
-            this.selectSuggestion(suggestionToSelect)
+            this.selectSuggestion(suggestionToSelect);
         } else if(e.keyCode === ENTER) {
             e.preventDefault();
-            this.triggerSuggestionSelected(this.state.selectedSuggestion)
+            this.triggerSuggestionSelected(this.state.selectedSuggestion);
         }
     }
 
     componentWillReceiveProps(newProps) {
         if (newProps.suggestions && newProps.suggestions.length > 0) {
-            this.selectSuggestion(newProps.suggestions[0])
+            this.selectSuggestion(newProps.suggestions[0]);
         }
     }
 
@@ -92,7 +92,7 @@ class SuggestionList extends Component {
                     onMouseOver={this.selectSuggestion.bind(this,s)}
                     onClick={this.triggerSuggestionSelected.bind(this,s)}
                 >{s.value} - {s.description}</li>)}
-        </ul>
+        </ul>;
     }
 }
  
