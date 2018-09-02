@@ -1,12 +1,12 @@
 import expect from 'expect';
-import { getSuggestion, evalAllProperties } from '../src/components/suggestionBuilder';
+import { getSuggestions, evalAllProperties } from '../src/components/suggestionBuilder';
 
 
 describe('get suggestion', () => {
     it('should lists . suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$.', 2, { test: 0 });
+        const suggestion = getSuggestions('$.', 2, { test: 0 });
         // Then
         expect(suggestion).toEqual([
             { value: 'test', description: 'property', scopes: ['object'] },
@@ -15,25 +15,25 @@ describe('get suggestion', () => {
                 value: '*',
                 scopes: ['[]', '.']
             }
-        ])
-    })
+        ]);
+    });
 
     it('should lists .. suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$..', 2, { test: 0, test2: [{test3: 1}] });
+        const suggestion = getSuggestions('$..', 2, { test: 0, test2: [{test3: 1}] });
         // Then
         expect(suggestion).toEqual([
             { value: 'test', description: 'property', scopes: ['object'] },
             { value: 'test2', description: 'property', scopes: ['object'] },
             { value: 'test3', description: 'property', scopes: ['object'] }
-        ])
-    })
+        ]);
+    });
 
     it('should lists object suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$', 2, { test: 0 });
+        const suggestion = getSuggestions('$', 2, { test: 0 });
         // Then
         expect(suggestion).toEqual([
             {
@@ -57,13 +57,13 @@ describe('get suggestion', () => {
                 value: '.*',
                 scopes: ['array', 'object']
             },
-        ])
-    })
+        ]);
+    });
 
     it('should lists array suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$', 2, [0, 1]);
+        const suggestion = getSuggestions('$', 2, [0, 1]);
         // Then
         expect(suggestion).toEqual([
             {
@@ -102,13 +102,13 @@ describe('get suggestion', () => {
                 value: '.*',
                 scopes: ['array', 'object']
             },
-        ])
-    })
+        ]);
+    });
 
     it('should lists pick suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$.test[]', 6, { test: [0, 1] });
+        const suggestion = getSuggestions('$.test[]', 7, { test: [0, 1] });
         // Then
         expect(suggestion).toEqual([
             {
@@ -139,24 +139,24 @@ describe('get suggestion', () => {
                 value: '*',
                 scopes: ['[]', '.']
             }
-        ])
-    })
+        ]);
+    });
 
     it('should not lists pick suggestions', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$.test[]', 7, { test: [0, 1] });
+        const suggestion = getSuggestions('$.test[]', 8, { test: [0, 1] });
         // Then
-        expect(suggestion).toEqual([])
-    })
+        expect(suggestion).toEqual([]);
+    });
 
     it('should lists no suggestions when json path is invalid', () => {
         // Given
         // When
-        const suggestion = getSuggestion('$.hello[@', 1, { test: [0, 1] });
+        const suggestion = getSuggestions('$.hello[@', 1, { test: [0, 1] });
         // then
         expect(suggestion).toEqual([]);
-    })
+    });
 
     it ('should lists no properties when json path is invalid', () => {
         // Given
@@ -164,6 +164,6 @@ describe('get suggestion', () => {
         // When
         const evaluatedProperties = evalAllProperties(suggestions, '$....', {test: 'a'});
         // Then
-        expect(evaluatedProperties).toEqual([[],[]])
-    })
-})
+        expect(evaluatedProperties).toEqual([[],[]]);
+    });
+});
