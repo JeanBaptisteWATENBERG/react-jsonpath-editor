@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Editor from './components/Editor';
+import PropTypes from 'prop-types';
 
 /** 
  * props :
@@ -9,7 +10,7 @@ import Editor from './components/Editor';
  *  - json? -- json to edit
  *  - editorPosition? -- {x,y} overrides the position of the editor 
 */
-export default class extends Component {
+class ReactJsonPath extends Component {
 
     constructor(props) {
         super(props);
@@ -114,3 +115,22 @@ export default class extends Component {
         </React.Fragment>;
     }
 }
+
+ReactJsonPath.propTypes = {
+    /** Properties to set on input tag */
+    inputProps: PropTypes.object,
+    /** Input value */
+    value: PropTypes.string,
+    /** Function called when input value change */
+    onChange: PropTypes.func,
+    /** Json to edit */
+    json: PropTypes.object,
+    /** {x,y} overrides the position of the editor  */
+    editorPosition: PropTypes.exact({
+        x: PropTypes.number,
+        y: PropTypes.number
+    }),
+};
+
+
+export default ReactJsonPath;

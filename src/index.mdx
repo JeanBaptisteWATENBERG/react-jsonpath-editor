@@ -1,0 +1,94 @@
+---
+name: react-json-editor
+route: /
+---
+
+import { Playground, PropsTable } from 'docz'
+import JsonPathEditor from './';
+
+# React JSON Path editor
+
+[![Travis][build-badge]][build] &nbsp;&nbsp;
+[![npm package][npm-badge]][npm] &nbsp;&nbsp;
+[![Coveralls][coveralls-badge]][coveralls]
+
+A react component that enables simple jsonpath editing by providing autocompletion and preview evaluation in a JSON editor
+
+<PropsTable of={JsonPathEditor} />
+
+## Basic usage
+
+The editor won't be displayed rigth under the field due to the offset of the playground
+
+<Playground>
+    <JsonPathEditor/>
+</Playground>
+
+## With editor position
+
+With editor position fixing the display issue when the component is encapsulated
+
+<Playground>
+    <JsonPathEditor editorPosition={{ x: 31, y: 55 }}/>
+</Playground>
+
+## With a default value
+
+<Playground>
+    <JsonPathEditor value='$.' editorPosition={{ x: 31, y: 55 }}/>
+</Playground>
+
+## With a prop
+
+<Playground>
+    <JsonPathEditor inputProps={{style: {background: 'black', color: 'white'}}} editorPosition={{ x: 31, y: 55 }}/>
+</Playground>
+
+
+## With a callback on change
+
+<Playground>
+    <JsonPathEditor onChange={(newValue) => { console.log(newValue) }} editorPosition={{ x: 31, y: 55 }}/>
+</Playground>
+
+## With a json
+
+<Playground>
+    <JsonPathEditor json={{
+  "data": [{
+    "type": "articles",
+    "id": "1",
+    "attributes": {
+      "title": "JSON API paints my bikeshed!",
+      "body": "The shortest article. Ever.",
+      "created": "2015-05-22T14:56:29.000Z",
+      "updated": "2015-05-22T14:56:28.000Z"
+    },
+    "relationships": {
+      "author": {
+        "data": {"id": "42", "type": "people"}
+      }
+    }
+  }],
+  "included": [
+    {
+      "type": "people",
+      "id": "42",
+      "attributes": {
+        "name": "John",
+        "age": 80,
+        "gender": "male"
+      }
+    }
+  ]
+}} editorPosition={{ x: 31, y: 55 }}/>
+</Playground>
+
+[build-badge]: https://img.shields.io/travis/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
+[build]: https://travis-ci.org/JeanBaptisteWATENBERG/react-jsonpath-editor
+
+[npm-badge]: https://img.shields.io/npm/v/react-jsonpath-editor.png?style=flat-square
+[npm]: https://www.npmjs.com/package/react-jsonpath-editor
+
+[coveralls-badge]: https://img.shields.io/coveralls/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
+[coveralls]: https://coveralls.io/github/JeanBaptisteWATENBERG/react-jsonpath-editor

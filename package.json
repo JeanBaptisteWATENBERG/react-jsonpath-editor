@@ -16,17 +16,23 @@
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "dependencies": {
     "easy-json-schema": "0.0.2-beta",
     "jsoneditor": "^5.16.0",
-    "jsonpath": "^1.0.0"
+    "jsonpath": "^1.0.0",
+    "prop-types": "^15.6.2"
   },
   "peerDependencies": {
     "react": "16.x"
   },
   "devDependencies": {
+    "docz": "^0.11.0",
+    "docz-plugin-css": "^0.11.0",
+    "docz-plugin-svgr": "^0.11.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.3.0",
