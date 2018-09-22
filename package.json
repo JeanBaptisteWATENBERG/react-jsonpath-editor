@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "easy-json-schema": "0.0.2-beta",
-    "jsoneditor": "^5.16.0",
     "jsonpath": "^1.0.0",
     "prop-types": "^15.6.2"
   },
