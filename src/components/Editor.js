@@ -5,7 +5,6 @@ import { getSuggestions } from './suggestionBuilder';
 import { getInputSelection, setCaretPosition, insertAtCursor } from './getInputSelection';
 import SuggestionList from './SuggestionList';
 
-import 'jsoneditor/dist/jsoneditor.min.css';
 import './editor.css';
 import JsonPathPreviewer from './JsonPathPreviewer';
 
