@@ -1,6 +1,6 @@
 {
   "name": "react-jsonpath-editor",
-  "version": "1.1.0-beta.3",
+  "version": "1.2.0",
   "description": "react-jsonpath-editor React component",
   "main": "lib/index.js",
   "module": "es/index.js",

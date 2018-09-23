@@ -1,16 +1,25 @@
 sudo: false
-
 language: node_js
 node_js:
-  - 8
-
+- 8
 before_install:
-  - npm install codecov.io coveralls
-
+- npm install codecov.io coveralls
 after_success:
-  - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
+- cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
+- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+- npm run docz:build
 branches:
   only:
-    - master
+  - master
+deploy:
+  - provider: npm
+    email: "jeanbaptiste.watenberg@gmail.com"
+    on:
+      branch: master
+    api_key:
+      secure: gpLMqNojmvhWMHWoskbjdNY053xujK8VbxiksEXj0b44eUvdGkiRnugeKEgaDPjBLl2vx9jjw+awQlUnNieWn+V3fFAq1BAAChJYR7kDD7Wl4hV2TiihXFWWwE89GdGggol5VbIsX+JZsCaPrrQnEjc6CFFSBBRdCLokGlURreT67cHb+n4kuwBalq5HX9Gvymdcpc4akWWhr73HQFT6hK4wpqsXU5TSvCe9jsHBjTTFmviLtUE3sLQB7iUG++2vLlSaRVqUx37ty5RSZgaPrvymMdb8xWMpCkdN+fr2fRSs/8YDy0eva4Vezcfjc5eBY7+LbEportVKp9JLaoyNvA0JJpUaHkGlOKTrfAIRVPfXJkk9IBxSqg+Lnse+RMKCU+eCN6W86EjLlvjREfpK8KkhWBqNBhg3ar0bcVm+7XQYp2FhXMrKK4KMK6PCQGyPr7ip7sbUJLJ5/zYraOq/s7vJuY1MqmJV2+QalYeWmD1+6iFOLlmQ4/hCwbp9Gdco7PHRX2flA2+Td1V++3rvRRLATfBQKosue00Bux1u1FSGIUTYGcSdHlTKZ0U0CsJXoUn0DnOOhwURdRsNK2t8j6R+CB4z0e0lIEqx4SG2+/+74FOJE7RuNi7+Us/By5g8a3fpbH/MSJ1cXlw5vrE4B88La4/tx4RMEUGAIU5R56U=
+  - provider: surge
+    project: .docz/dist
+    domain: react-jsonpath-editor.surge.sh
+    on:
+      branch: master
