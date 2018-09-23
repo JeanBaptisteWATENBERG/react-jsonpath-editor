@@ -50,7 +50,6 @@ class Editor extends Component {
     constructor(props) {
         super(props);
 
-        this.onJsonChange = this.onJsonChange.bind(this);
         this.onSelectSuggestion = this.onSelectSuggestion.bind(this);
         this.onCaretChanged = this.onCaretChanged.bind(this);
 
@@ -125,10 +124,6 @@ class Editor extends Component {
 
             this.setState({ suggestions });
         }
-    }
-
-    onJsonChange() {
-        this.initSchema(this.props);
     }
 
     onSelectSuggestion(suggestion) {
