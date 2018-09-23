@@ -63,7 +63,7 @@ class Demo extends Component {
                         'price': 19.95
                     }
                 }
-            }} jsonPath='$.store' />
+            }} jsonPath='$.store.book.length' />
 
         </div>;
     }

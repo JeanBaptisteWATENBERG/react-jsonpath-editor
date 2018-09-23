@@ -24,9 +24,12 @@ class JsonPathPreviewer extends Component {
     tagPartOfJsonToHighlight(jsonAsObject, paths, traversedPath = ['$']) {
         if (Array.isArray(jsonAsObject)) {
             const doesTraversingPathMatch = paths.filter(oneOfPathsToRetrieve => oneOfPathsToRetrieve.join(',') === traversedPath.join(',')).length > 0;
+            const isALengthPathMatchingThisCollection = paths.filter(oneOfPathsToRetrieve => oneOfPathsToRetrieve.join(',') === [...traversedPath, 'length'].join(',')).length > 0;
             return `${carriageReturnTag + indentationIncrementationTag}${doesTraversingPathMatch ? highlightingTags.start : ''}[${carriageReturnTag + indentationIncrementationTag}${jsonAsObject.map((item, index) => 
                 this.tagPartOfJsonToHighlight(item, paths, [...traversedPath, index])
-            ).join(',' + carriageReturnTag)}${indentationDecrementationTag + carriageReturnTag}]${doesTraversingPathMatch ? highlightingTags.end  : ''}${indentationDecrementationTag}`;
+            ).join(',' + carriageReturnTag)}${indentationDecrementationTag + carriageReturnTag}]${
+                doesTraversingPathMatch ? highlightingTags.end  : ''
+            }${isALengthPathMatchingThisCollection ? highlightingTags.start + '.length = ' + jsonAsObject.length + highlightingTags.end : ''}${indentationDecrementationTag}`;
         }
 
         if (typeof jsonAsObject === 'object') {
