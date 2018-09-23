@@ -73,6 +73,14 @@ describe('Json path preview component', () => {
         expect(taggedJSON).toContain(highlightingTags.start + defaultJson.store.book[0].category + highlightingTags.end);
     });
 
+    it ('should tag all books', () => {
+        const wraper = mount(<Previewer json={defaultJson} jsonPath='$..book' />);
+        const paths = wraper.instance().evalJsonPath(defaultJson, '$..book');
+        const taggedJSON = wraper.instance().tagPartOfJsonToHighlight(defaultJson, paths);
+        
+        expect(taggedJSON).toContain('£CR££INC£££TAGGED£[£CR££INC£{£CR££INC£"category": "reference",£CR£"author": "Nigel Rees",£CR£"title": "Sayings of the Century",£CR£"price": 8.95£DEC££CR£},£CR£{£CR££INC£"category": "fiction",£CR£"author": "Evelyn Waugh",£CR£"title": "Sword of Honour",£CR£"price": 12.99£DEC££CR£},£CR£{£CR££INC£"category": "fiction",£CR£"author": "Herman Melville",£CR£"title": "Moby Dick",£CR£"isbn": "0-553-21311-3",£CR£"price": 8.99£DEC££CR£},£CR£{£CR££INC£"category": "fiction",£CR£"author": "J. R. R. Tolkien",£CR£"title": "The Lord of the Rings",£CR£"isbn": "0-395-19395-8",£CR£"price": 22.99£DEC££CR£}£DEC££CR£]£TAGGED£££DEC£');
+    });
+
     it ('should not tag anything', () => {
         const wraper = mount(<Previewer json={defaultJson} jsonPath='$..books' />);
         const paths = wraper.instance().evalJsonPath(defaultJson, '$..books');
