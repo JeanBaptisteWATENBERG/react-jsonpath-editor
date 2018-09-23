@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { getSuggestions, evalAllProperties } from '../src/components/suggestionBuilder';
+import { getSuggestions, evalAllProperties, suggestions } from '../src/components/suggestionBuilder';
 
 
 describe('get suggestion', () => {
@@ -35,29 +35,7 @@ describe('get suggestion', () => {
         // When
         const suggestion = getSuggestions('$', 2, { test: 0 });
         // Then
-        expect(suggestion).toEqual([
-            {
-                description: 'access a specific property',
-                scopes: [
-                    'array',
-                    'object'
-                ],
-                value: '.'
-            },
-            {
-                description: 'search recursively for a property',
-                scopes: [
-                    'array',
-                    'object'
-                ],
-                value: '..'
-            },
-            {
-                description: 'get all values',
-                value: '.*',
-                scopes: ['array', 'object']
-            },
-        ]);
+        expect(suggestion).toEqual(suggestions.filter(sug => sug.scopes.includes('object')));
     });
 
     it('should lists array suggestions', () => {
@@ -65,44 +43,7 @@ describe('get suggestion', () => {
         // When
         const suggestion = getSuggestions('$', 2, [0, 1]);
         // Then
-        expect(suggestion).toEqual([
-            {
-                description: 'pick a value in a collection',
-                scopes: [
-                    'array'
-                ],
-                setCarretAt: 1,
-                value: '[]'
-            },
-            {
-                description: 'get collection size',
-                scopes: [
-                    'array'
-                ],
-                value: '.length'
-            },
-            {
-                description: 'access a specific property',
-                scopes: [
-                    'array',
-                    'object'
-                ],
-                value: '.'
-            },
-            {
-                description: 'search recursively for a property',
-                scopes: [
-                    'array',
-                    'object'
-                ],
-                value: '..'
-            },
-            {
-                description: 'get all values',
-                value: '.*',
-                scopes: ['array', 'object']
-            },
-        ]);
+        expect(suggestion).toEqual(suggestions.filter(sug => sug.scopes.includes('array')));
     });
 
     it('should lists pick suggestions', () => {
@@ -110,36 +51,7 @@ describe('get suggestion', () => {
         // When
         const suggestion = getSuggestions('$.test[]', 7, { test: [0, 1] });
         // Then
-        expect(suggestion).toEqual([
-            {
-                description: 'filter a collection',
-                value: '?(@)',
-                setCarretAt: 3,
-                scopes: ['[]']
-            },
-            {
-                description: 'select an item by it\'s index relatively to the size of the collection',
-                value: '(@.length-1)',
-                setCarretAt: 10,
-                scopes: ['[]']
-            },
-            {
-                description: 'select a range of item by their indexes',
-                value: '0:1',
-                setCarretAt: 0,
-                scopes: ['[]']
-            },
-            {
-                description: 'retrieves last item in a collection',
-                value: '-1:',
-                scopes: ['[]']
-            },
-            {
-                description: 'get all values',
-                value: '*',
-                scopes: ['[]', '.']
-            }
-        ]);
+        expect(suggestion).toEqual(suggestions.filter(sug => sug.scopes.includes('[]')));
     });
 
     it('should not lists pick suggestions', () => {
@@ -148,6 +60,29 @@ describe('get suggestion', () => {
         const suggestion = getSuggestions('$.test[]', 8, { test: [0, 1] });
         // Then
         expect(suggestion).toEqual([]);
+    });
+
+    it('should lists suggestions when json path ends with part of an attribute', () => {
+        // Given
+        // When
+        const suggestion = getSuggestions('$.tes', 5, { test: [0, 1] });
+        // then
+        expect(suggestion).toEqual([
+            {
+                'description': 'property',
+                'scopes': [
+                    'object'
+                ],
+                'value': 'test'
+            }, ...suggestions.filter(sug => sug.scopes.includes('object'))]);
+    });
+
+    it('should lists suggestions when json path ends with an exact attribute', () => {
+        // Given
+        // When
+        const suggestion = getSuggestions('$.test', 5, { test: {exemple: 'test'} });
+        // then
+        expect(suggestion).toEqual(suggestions.filter(sug => sug.scopes.includes('object')));
     });
 
     it('should lists no suggestions when json path is invalid', () => {

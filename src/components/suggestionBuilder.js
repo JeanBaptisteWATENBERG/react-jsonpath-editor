@@ -1,6 +1,6 @@
 import jp from 'jsonpath/jsonpath.min';
 
-const suggestions = [
+export const suggestions = [
     {
         'description': 'pick a value in a collection',
         'value': '[]',

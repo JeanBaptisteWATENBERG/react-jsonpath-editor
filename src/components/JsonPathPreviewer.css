@@ -1,0 +1,13 @@
+.highlighted {
+    color: green;
+    font-weight: bold;
+}
+
+code {
+    color: #777;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+code p {
+    margin: 0;
+}

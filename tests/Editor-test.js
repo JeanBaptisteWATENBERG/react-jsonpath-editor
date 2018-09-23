@@ -24,14 +24,6 @@ describe('Editor component', () => {
         expect(wraper.state().jsonSchema).toEqual({type: 'number'});
     });
 
-
-    it ('should set json when updated in editor', () => {
-        const wraper = mount(<Editor input={document.createElement('input')} position={{x: 0, y:0}} json={{type: 'string'}} />);
-        wraper.instance().jsonEditor.set({test: 'a'});
-        wraper.instance().onJsonChange();
-        expect(wraper.state().jsonToFilter).toEqual({test: 'a'});
-    });
-
     it ('should dispatch selected suggestion', () =>  {
         //S
         const spy = expect.createSpy();

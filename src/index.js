@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Editor from './components/Editor';
 import PropTypes from 'prop-types';
+import JsonPathPreviewer from './components/JsonPathPreviewer';
 
 /** 
  * props :
@@ -134,3 +135,4 @@ ReactJsonPath.propTypes = {
 
 
 export default ReactJsonPath;
+export {JsonPathPreviewer};
