@@ -4,10 +4,14 @@ node_js:
 - 8
 before_install:
 - npm install codecov.io coveralls
+install :
+- npm install
+- npm run build
 after_success:
 - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
 - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-- npm run build
+
+before_deploy:
 - npm run docz:build
 branches:
   only:
