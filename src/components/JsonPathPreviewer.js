@@ -50,12 +50,13 @@ class JsonPathPreviewer extends Component {
 
     convertTaggedJsonAsReactComponent(taggedJSON) {
         let increments = 0;
-        let highlightBlock = false;
+        let isBlockHighlighted = false;
         return taggedJSON.split(carriageReturnTag).map(line => {
             if (line.includes(indentationIncrementationTag)) increments++;
-            if (line.includes(highlightingTags.start + '[') || line.includes(highlightingTags.start + '{')) highlightBlock = true;
+            if (line.includes(highlightingTags.start + '[') || line.includes(highlightingTags.start + '{')) isBlockHighlighted = true;
+            const isLineSelectable = line.includes(':');
             const toReturn = <React.Fragment>
-                <p className={highlightBlock ? 'highlighted' : ''}>
+                <p className={(isBlockHighlighted ? 'highlighted ' : '') + (isLineSelectable ? 'selectable' : '')}>
                     {Array(increments).fill(<React.Fragment>&nbsp;</React.Fragment>)}
                     {line.replace(new RegExp(indentationIncrementationTag,'g'), '').replace(new RegExp(indentationDecrementationTag,'g'), '')
                         .split(highlightingTags.start).map(jsonPart => {
@@ -68,7 +69,7 @@ class JsonPathPreviewer extends Component {
                 </p>
             </React.Fragment>;
             if (line.includes(indentationDecrementationTag)) increments--;
-            if (line.includes(']' + highlightingTags.end) || line.includes('}' + highlightingTags.end)) highlightBlock = false;
+            if (line.includes(']' + highlightingTags.end) || line.includes('}' + highlightingTags.end)) isBlockHighlighted = false;
             return toReturn;
         });
     }

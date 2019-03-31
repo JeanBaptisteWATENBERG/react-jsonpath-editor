@@ -1,13 +1,20 @@
-.highlighted {
+.react-json-path-editor-jsoneditor-container code .highlighted {
     color: green;
     font-weight: bold;
 }
 
-code {
+.react-json-path-editor-jsoneditor-container code p.selectable:hover {
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.react-json-path-editor-jsoneditor-container code {
     color: #777;
     font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
-code p {
+.react-json-path-editor-jsoneditor-container code p {
     margin: 0;
 }
