@@ -150,10 +150,11 @@ class Editor extends Component {
             left: this.props.position.x,
         };
 
-        const {jsonpath} = this.props;
+        const {jsonpath, previewOrientation} = this.props;
         const {jsonToFilter, suggestions} = this.state;
 
         return <div className='react-json-path-editor-container' style={style} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.props.onMouseLeave}>
+            {previewOrientation && previewOrientation === 'left' && <JsonPathPreviewer json={jsonToFilter} jsonPath={jsonpath}/>}
             <div className='react-json-path-editor-intellisense'>
                 <SuggestionList
                     suggestions={suggestions}
@@ -161,9 +162,7 @@ class Editor extends Component {
                 // onSelectSuggestionToSimulate={}
                 />
             </div>
-            <div className='react-json-path-editor-jsoneditor-container'>
-                <JsonPathPreviewer json={jsonToFilter} jsonPath={jsonpath}/>
-            </div>
+            {(!previewOrientation || previewOrientation === 'right') && <JsonPathPreviewer json={jsonToFilter} jsonPath={jsonpath}/>}
         </div>;
     }
 }

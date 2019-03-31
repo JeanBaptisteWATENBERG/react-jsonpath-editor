@@ -10,6 +10,7 @@ import JsonPathPreviewer from './components/JsonPathPreviewer';
  *  - onChange? -- function called when input value change
  *  - json? -- json to edit
  *  - editorPosition? -- {x,y} overrides the position of the editor 
+ *  - previewOrientation? -- left or rigth, default to rigth
 */
 class ReactJsonPath extends Component {
 
@@ -54,7 +55,8 @@ class ReactJsonPath extends Component {
             this.setState({editorPosition: this.props.editorPosition});
         } else if (this.inputRef && this.inputRef.current) {
             const inputBoundRect = this.inputRef.current.getBoundingClientRect();
-            this.setState({editorPosition: {x:inputBoundRect.left, y: inputBoundRect.top + inputBoundRect.height}});
+            const xOffset = this.props.previewOrientation && this.props.previewOrientation === 'left' ? -500 : 0;
+            this.setState({editorPosition: {x:inputBoundRect.left + xOffset, y: inputBoundRect.top + inputBoundRect.height}});
         }
     }
 
@@ -101,7 +103,7 @@ class ReactJsonPath extends Component {
     }
 
     render() {
-        const {inputProps, json} = this.props;
+        const {inputProps, json, previewOrientation} = this.props;
         const {value, editorOpened, editorPosition} = this.state;
         return <React.Fragment>
             <input ref={this.inputRef} type='text' value={value} onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onBlur} {...inputProps} />
@@ -112,7 +114,8 @@ class ReactJsonPath extends Component {
                 json={json}
                 onJsonPathChanged={this.changePath}
                 onMouseEnter={this.disableBlur}
-                onMouseLeave={this.onMouseLeaveFromEditor} />}
+                onMouseLeave={this.onMouseLeaveFromEditor}
+                previewOrientation={previewOrientation} />}
         </React.Fragment>;
     }
 }
@@ -131,6 +134,8 @@ ReactJsonPath.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number
     }),
+    /** Defines orientation of preview. default to right */
+    previewOrientation: PropTypes.oneOf(['left', 'right'])
 };
 
 

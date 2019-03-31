@@ -808,10 +808,6 @@
     escape-string-regexp "^1.0.5"
     lodash.deburr "^4.1.0"
 
-"@sphinxxxx/color-conversion@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.1.1.tgz#da281a9641eb3f699979432fe531bba520e3ffbb"
-
 "@svgr/core@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/core/-/core-2.2.0.tgz#59219d92b4c372bb925c4ad3ebc66ccd04e9d5c3"
@@ -1123,7 +1119,7 @@ ajv-keywords@^3.0.0, ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
 
-ajv@5.5.2, ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5, ajv@^5.3.0:
+ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5, ajv@^5.3.0:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
   dependencies:
@@ -2515,10 +2511,6 @@ brace-expansion@^1.0.0, brace-expansion@^1.1.7:
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
-
-brace@0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/brace/-/brace-0.11.1.tgz#4896fcc9d544eef45f4bb7660db320d3b379fe58"
 
 braces@^0.1.2:
   version "0.1.5"
@@ -4519,10 +4511,6 @@ dotenv@^6.0.0:
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
   resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
-
-drag-tracker@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/drag-tracker/-/drag-tracker-1.0.0.tgz#9bd33d380bc3056db69bd5b3cf6e062fec58bd64"
 
 duplexer2@^0.1.2, duplexer2@~0.1.0, duplexer2@~0.1.2:
   version "0.1.4"
@@ -7104,10 +7092,6 @@ istanbul@^0.4.0:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
-javascript-natural-sort@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz#f9e2303d4507f6d74355a73664d1440fb5a0ef59"
-
 javascript-stringify@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/javascript-stringify/-/javascript-stringify-1.6.0.tgz#142d111f3a6e3dae8f4a9afd77d45855b5a9cce3"
@@ -7131,10 +7115,6 @@ jison@0.4.13:
     jison-lex "0.2.x"
     lex-parser "~0.1.3"
     nomnom "1.5.2"
-
-jmespath@0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.9"
@@ -7249,10 +7229,6 @@ json-schema@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
 
-json-source-map@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/json-source-map/-/json-source-map-0.4.0.tgz#eea837fe3ce2f2bfd5b13687779406354423c355"
-
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
@@ -7274,19 +7250,6 @@ json3@^3.3.2:
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
-
-jsoneditor@^5.16.0:
-  version "5.24.5"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-5.24.5.tgz#de8bd89349345b3d43c3fa421edab5ee211ba721"
-  dependencies:
-    ajv "5.5.2"
-    brace "0.11.1"
-    javascript-natural-sort "0.7.1"
-    jmespath "0.15.0"
-    json-source-map "0.4.0"
-    mobius1-selectr "2.4.2"
-    picomodal "3.0.0"
-    vanilla-picker "2.4.2"
 
 jsonfile@^2.1.0:
   version "2.4.0"
@@ -8288,10 +8251,6 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
-
-mobius1-selectr@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/mobius1-selectr/-/mobius1-selectr-2.4.2.tgz#b8a619c8a0ed6234590e5e5a9e979e15d9b4b89a"
 
 mocha@4.1.0:
   version "4.1.0"
@@ -9358,10 +9317,6 @@ phantomjs-prebuilt@2.1.16, phantomjs-prebuilt@^2.1.7:
     request "^2.81.0"
     request-progress "^2.0.1"
     which "^1.2.10"
-
-picomodal@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/picomodal/-/picomodal-3.0.0.tgz#facd30f4fbf34a809c1e04ea525f004f399c0b82"
 
 pify@^2.0.0:
   version "2.3.0"
@@ -12834,13 +12789,6 @@ validate-npm-package-license@^3.0.1:
 value-equal@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/value-equal/-/value-equal-0.4.0.tgz#c5bdd2f54ee093c04839d71ce2e4758a6890abc7"
-
-vanilla-picker@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/vanilla-picker/-/vanilla-picker-2.4.2.tgz#830f1d23934c5eb25fc7b1d667aa8c21260f041c"
-  dependencies:
-    "@sphinxxxx/color-conversion" "^2.1.1"
-    drag-tracker "^1.0.0"
 
 vary@^1.1.2, vary@~1.1.2:
   version "1.1.2"

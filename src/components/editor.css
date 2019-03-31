@@ -7,7 +7,8 @@
 }
 
 .react-json-path-editor-jsoneditor-container {
-    width: 500px;
+    width: 487px;
+    margin-right: 10px;
     max-height: 500px;
     overflow: auto;
     background: white;
