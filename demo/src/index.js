@@ -26,6 +26,7 @@ class Demo extends Component {
             <h2>With a default value</h2>
             <JsonPathEditor value='$.store.book'/>
             <br/>
+            {'------------------------------------------------------------------------------------------------------------------  '}<JsonPathEditor value='$.store.book' previewOrientation='left'/>
             <br/>
             <br/>
             <Previewer json={{

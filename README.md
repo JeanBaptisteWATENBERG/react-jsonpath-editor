@@ -34,13 +34,14 @@ class App extends Component {
 
 ## Properties
 
-| Props         | Type          | Required  | Description                                           |
-|---------------|:-------------:|:---------:|-------------------------------------------------------|
-| inputProps    |   `object`    |  `false`  | Properties passed down to the input                   |
-| value         |   `string`    |  `false`  | input default value                                   |
-| json          |   `object`    |  `false`  | json to test the json path and provide autocompletion |
-| onChange      |  `function`   |  `false`  | callback called when jsonPath changed                 |
-| editorPosition|   `object`    |  `false`  | {x,y} overrides the position of the editor            |
+| Props             | Type                   | Required  | Description                                           |
+|-------------------|:----------------------:|:---------:|-------------------------------------------------------|
+| inputProps        |   `object`             |  `false`  | Properties passed down to the input                   |
+| value             |   `string`             |  `false`  | input default value                                   |
+| json              |   `object`             |  `false`  | json to test the json path and provide autocompletion |
+| onChange          |  `function`            |  `false`  | callback called when jsonPath changed                 |
+| editorPosition    |   `object`             |  `false`  | {x,y} overrides the position of the editor            |
+| previewOrientation|   `right` or `left`    |  `false`  | Defines orientation of preview. default to right      |
 
 [build-badge]: https://img.shields.io/travis/JeanBaptisteWATENBERG/react-jsonpath-editor/master.png?style=flat-square
 [build]: https://travis-ci.org/JeanBaptisteWATENBERG/react-jsonpath-editor
